@@ -1,0 +1,10 @@
+build/
+*.o
+*.a
+*.so
+*.img
+*.dtb
+*.dtbo
+*.env
+*.key
+*.pem

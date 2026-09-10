@@ -1,0 +1,19 @@
+# SUCA Device Profile Schema v1
+
+required = profile_id, model, architecture, soc_family, boot_image_policy, dtb_required, support_level
+
+[allowed]
+architecture = aarch64, armhf
+boot_image_policy = separate-test-image
+support_level = boot-only, basic-ui, usable, hardware, daily-driver
+status = verified, needs-device-validation, unavailable, not-applicable
+
+[required-hardware-sections]
+sections = device, memory, boot, display, input, power, audio, camera, modem, sensors, storage, support
+
+[release-rules]
+1 = support level cannot exceed the least-tested critical component
+2 = daily-driver requires suspend_resume validation
+3 = hardware requires camera, modem, audio, and sensor results
+4 = original boot image must remain untouched
+5 = every release profile must include kernel and DTB identifiers
