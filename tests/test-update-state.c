@@ -27,6 +27,13 @@ int main(void) {
     assert(context.state == SUCA_UPDATE_ROLLBACK);
 
     context.active_slot = 'A';
+    context.target_slot = 'B';
+    context.boot_attempts = context.boot_attempt_limit;
+    context.state = SUCA_UPDATE_REBOOT_PENDING;
+    assert(suca_update_transition(&context, SUCA_UPDATE_ROLLBACK));
+    assert(context.state == SUCA_UPDATE_ROLLBACK);
+
+    context.active_slot = 'A';
     context.target_slot = 'A';
     assert(!suca_update_can_install(&context));
     assert(strcmp(suca_update_state_name(SUCA_UPDATE_ROLLBACK), "rollback") == 0);

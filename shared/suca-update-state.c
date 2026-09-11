@@ -25,8 +25,10 @@ int suca_update_transition(SucaUpdateContext *context, SucaUpdateState next) {
     if (context->active_slot == context->target_slot &&
         next == SUCA_UPDATE_INSTALLING_INACTIVE)
         return 0;
-    if (next == SUCA_UPDATE_ROLLBACK && context->boot_attempts >= context->boot_attempt_limit)
+    if (next == SUCA_UPDATE_ROLLBACK && context->boot_attempts >= context->boot_attempt_limit) {
+        context->state = SUCA_UPDATE_ROLLBACK;
         return 1;
+    }
     context->state = next;
     return 1;
 }

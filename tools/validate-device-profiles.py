@@ -7,6 +7,7 @@ REQUIRED = {
     "profile_id", "model", "architecture", "soc_family",
     "boot_image_policy", "dtb_required", "support_level",
 }
+ALLOWED_ARCHITECTURES = {"aarch64", "armhf"}
 ALLOWED_LEVELS = {"boot-only", "basic-ui", "usable", "hardware", "daily-driver"}
 
 
@@ -32,7 +33,7 @@ def main():
         missing = sorted(REQUIRED - values.keys())
         if missing:
             raise SystemExit(f"{path}: missing {', '.join(missing)}")
-        if values["architecture"] != "aarch64":
+        if values["architecture"] not in ALLOWED_ARCHITECTURES:
             raise SystemExit(f"{path}: unsupported architecture {values['architecture']}")
         if values["boot_image_policy"] != "separate-test-image":
             raise SystemExit(f"{path}: unsafe boot image policy")
